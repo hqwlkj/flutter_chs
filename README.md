@@ -1,4 +1,14 @@
-# flutter_chs
+
+<p align="center">
+  <a href="http://www.cqkqinfo.com/">
+    <img width="120" src="http://www.cqkqinfo.com/images/home/logo.png">
+  </a>
+<a href="https://www.newlandpayment.cn/">
+    <img width="120" src="https://www.newlandpayment.cn/temp/temp/52/52-0201/202003030938/logo.png">
+  </a>
+</p>
+
+<h1 align="center">Flutter CHS</h1>
 
 CHINA HEALTHCARE SECURITY 缩写：CHS
 

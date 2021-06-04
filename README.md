@@ -13,3 +13,8 @@
 CHINA HEALTHCARE SECURITY 缩写：CHS
 
 中国医疗保障局（福建新大陆支付技术有限公司）Flutter插件
+
+如果过使用到微信刷脸的功能请安装 [wechat_face_payment](https://pub.dev/packages/wechat_face_payment) 插件中。
+
+
+## 功能

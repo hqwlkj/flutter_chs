@@ -436,8 +436,8 @@ public class ChsService {
                     hybridReader = DeviceService.getInstance(context).getHybridReader();
                     if(hybridReader != null){
                         Bundle bundle = hybridReader.readDevice(timeout * 1000, isIdCard, isScan, isHealthCard);
-                        LoggerUtil.e(bundle.toString());
-                        if (bundle != null && bundle.getInt("errorCode") == 0x9f) {
+                        LoggerUtil.e(bundle.get("errorCode").toString());
+                        if (bundle.getInt("errorCode") == 0x90) {
                             JSONObject data = new JSONObject();
                             switch (bundle.getString("type")) {
                                 case "SCAN":
@@ -456,7 +456,7 @@ public class ChsService {
                             data.put("type", bundle.get("type"));
                             params.put(Constant.RESULT_MESSAGE, "识别成功");
                             params.put(Constant.RESULT_CODE, Constant.RESULT_SUCCESS);
-                            params.put(Constant.RESULT_DATA, data);
+                            params.put(Constant.RESULT_DATA, data.toString());
                         } else {
                             params.put(Constant.RESULT_MESSAGE, "信息读取失败，请稍候尝试");
                             params.put(Constant.RESULT_CODE, Constant.RESULT_ERROR);

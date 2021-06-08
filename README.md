@@ -89,6 +89,19 @@ CHINA HEALTHCARE SECURITY 缩写：CHS
     print("DEMO-RESULT: $result");
 ```
 
+<li>多合一（NFC、IC卡、扫描）</li>
+
+```dart
+    /// 可选参数说明
+    /// timeout       - 读卡超时时间，单位秒; 默认：30 秒
+    /// isIdCard      - 支持身份证 默认：true
+    /// isScan        - 支持扫码 默认：true
+    /// isHealthCard  - 支持社保卡 默认：true
+
+    Map<String, dynamic> result = await FlutterChs.openReadDevice()
+    print("DEMO-RESULT: $result");
+```
+
 返回的数据结构及说明
 
 ```json

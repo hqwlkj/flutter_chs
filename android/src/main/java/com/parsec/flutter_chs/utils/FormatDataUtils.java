@@ -1,6 +1,8 @@
 package com.parsec.flutter_chs.utils;
 
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.util.Base64;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,11 +57,14 @@ public class FormatDataUtils {
         data.put("birth_moth", bundle.get("birth_moth"));
         data.put("birth_day", bundle.get("birth_day"));
         data.put("address", bundle.get("address"));
-        data.put("sign_office", bundle.get("sign_office"));
+        data.put("sign_office", bundle.get("sign_offic"));
         data.put("version", bundle.get("version"));
         data.put("flag", bundle.get("flag"));
-        data.put("reserved", bundle.get("reserved"));
-        data.put("photo", bundle.get("photo"));
+        data.put("reserved", bundle.get("reserved")); //
+        byte[] photo = bundle.getByteArray("photo");
+        if (photo != null) {
+            data.put("photo", new String(photo));
+        }
         data.put("fingerprint", bundle.get("fingerprint"));
         return data;
     }

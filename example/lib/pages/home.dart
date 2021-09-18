@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
                       _result = result;
                     });
                   },
-                  child: Text('扫码开')),
+                  child: const Text('扫码开')),
               TextButton(
                   onPressed: () async {
                     Map<String, dynamic> result =
@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                       _result = result;
                     });
                   },
-                  child: Text('身份证开')),
+                  child: const Text('身份证开')),
               TextButton(
                   onPressed: () async {
                     Map<String, dynamic> result =
@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                       _result = result;
                     });
                   },
-                  child: Text('社保卡开')),
+                  child: const Text('社保卡开')),
               TextButton(
                   onPressed: () async {
                     Map<String, dynamic> result =
@@ -98,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                       _result = result;
                     });
                   },
-                  child: Text('多合一读卡开')),
+                  child: const Text('多合一读卡开')),
             ],
           ),
           Row(
@@ -108,25 +108,25 @@ class _HomePageState extends State<HomePage> {
                     await FlutterChs.closeScan;
                     _closeResult();
                   },
-                  child: Text('扫码关')),
+                  child: const Text('扫码关')),
               TextButton(
                   onPressed: () async {
                     await FlutterChs.closeReadIdCard;
                     _closeResult();
                   },
-                  child: Text('身份证关')),
+                  child: const Text('身份证关')),
               TextButton(
                   onPressed: () async {
                     await FlutterChs.closeReadSocialSecurityCard;
                     _closeResult();
                   },
-                  child: Text('社保卡关')),
+                  child: const Text('社保卡关')),
               TextButton(
                   onPressed: () async {
                     await FlutterChs.closeDevice;
                     _closeResult();
                   },
-                  child: Text('多合一读卡关')),
+                  child: const Text('多合一读卡关')),
             ],
           ),
           Row(
@@ -140,12 +140,12 @@ class _HomePageState extends State<HomePage> {
                       _result = result;
                     });
                   },
-                  child: Text('就诊卡开')),
+                  child: const Text('就诊卡开')),
               TextButton(
                   onPressed: () async {
                     await FlutterChs.beepSwitchOpen;
                   },
-                  child: Text('开启蜂鸣器总开关')),
+                  child: const Text('开启蜂鸣器总开关')),
               TextButton(
                   onPressed: () async {
                     Map<String, dynamic> result = await FlutterChs.findIdCard;
@@ -154,7 +154,7 @@ class _HomePageState extends State<HomePage> {
                       _result = result;
                     });
                   },
-                  child: Text('寻身份证')),
+                  child: const Text('寻身份证')),
             ],
           ),
           Row(
@@ -164,12 +164,12 @@ class _HomePageState extends State<HomePage> {
                     await FlutterChs.closeReadHospitalCard;
                     _closeResult();
                   },
-                  child: Text('就诊卡关')),
+                  child: const Text('就诊卡关')),
               TextButton(
                   onPressed: () async {
                     await FlutterChs.beepSwitchClose;
                   },
-                  child: Text('关闭蜂鸣器总开关')),
+                  child: const Text('关闭蜂鸣器总开关')),
               TextButton(
                   onPressed: () async {
                     Map<String, dynamic> result =
@@ -179,7 +179,7 @@ class _HomePageState extends State<HomePage> {
                       _result = result;
                     });
                   },
-                  child: Text('寻社保卡')),
+                  child: const Text('寻社保卡')),
             ],
           ),
           Expanded(
@@ -220,16 +220,16 @@ class _HomePageState extends State<HomePage> {
                           _response = response.toString();
                         });
                       },
-                      child: Text('获取人员基础信息'))
+                      child: const Text('获取人员基础信息'))
                 ],
               ),
               Container(
                 width: double.infinity,
                 height: ScreenUtil().setWidth(240),
-                margin: EdgeInsets.all(20),
-                padding: EdgeInsets.all(20),
+                margin: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                    border: Border.all(color: Color(0xff333333), width: 0.5),
+                    border: Border.all(color: const Color(0xff333333), width: 0.5),
                     borderRadius: BorderRadius.circular(10)),
                 child: SingleChildScrollView(
                   child: Text(_response),

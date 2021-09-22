@@ -96,4 +96,14 @@ class FlutterChs {
   static Future<void> get closeDevice async {
     await _channel.invokeMethod('closeDevice');
   }
+
+  /// 显示LOADNIG
+  static Future<void> showLoading({String? msg}) async {
+    await _channel.invokeMethod('showLoading', {'msg': msg});
+  }
+
+  /// 关闭LOADING
+  static Future<void> get hideLoading async {
+    await _channel.invokeMethod('hideLoading');
+  }
 }

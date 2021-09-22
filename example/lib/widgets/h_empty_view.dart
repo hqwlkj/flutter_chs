@@ -7,7 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class HEmptyView extends StatelessWidget {
   final double width;
 
-  HEmptyView(this.width);
+  // HEmptyView(this.width);
+  const HEmptyView(this.width, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

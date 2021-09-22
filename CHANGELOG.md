@@ -1,3 +1,9 @@
+## 0.0.4
+
+* fix: Flutter MethodChannel 原生通信导致的Reply already submitted问题
+* 新增 Loading 方法 `showLoading`
+* 关闭 Loading 方法 `hideLoading`
+
 ## 0.0.3
 
 * 升级 FLutter 2.x

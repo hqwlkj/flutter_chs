@@ -102,6 +102,23 @@ CHINA HEALTHCARE SECURITY 缩写：CHS
     print("DEMO-RESULT: $result");
 ```
 
+
+<li>LOADING</li>
+
+```dart
+    /// 显示默认的loading
+    
+    FlutterChs.showLoading();
+
+    /// 显示自定义 `msg` 的 loading
+
+    FlutterChs.showLoading(msg: '加载中...');
+
+    /// 关闭 loading
+    FlutterChs.hideLoading;
+    
+```
+
 返回的数据结构及说明
 
 ```json

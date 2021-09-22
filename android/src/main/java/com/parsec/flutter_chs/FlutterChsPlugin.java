@@ -35,6 +35,7 @@ public class FlutterChsPlugin implements FlutterPlugin, MethodCallHandler, Activ
     public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
         channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "flutter_chs");
         FlutterChsHandler.setContext(flutterPluginBinding.getApplicationContext());
+        FlutterChsHandler.initDialog(flutterPluginBinding.getApplicationContext());
         FlutterChsHandler.setChannel(channel);
         channel.setMethodCallHandler(this);
     }
@@ -101,6 +102,14 @@ public class FlutterChsPlugin implements FlutterPlugin, MethodCallHandler, Activ
             case "closeDevice":
                 ChsService.closeDevice();
                 break;
+            case "showLoading":
+                String msg = call.argument("msg");
+                LoggerUtil.e("msg:" + msg);
+                FlutterChsHandler.showDialog(msg);
+                break;
+            case "hideLoading":
+                FlutterChsHandler.hideDialog();
+                break;
             default:
                 result.notImplemented();
                 break;
@@ -128,7 +137,11 @@ public class FlutterChsPlugin implements FlutterPlugin, MethodCallHandler, Activ
                 uiThreadHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        result.success(params);
+                        try {
+                            result.success(params);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
             }
@@ -225,6 +238,7 @@ public class FlutterChsPlugin implements FlutterPlugin, MethodCallHandler, Activ
     @Override
     public void onAttachedToActivity(ActivityPluginBinding binding) {
         FlutterChsHandler.setContext(binding.getActivity());
+        FlutterChsHandler.initDialog(binding.getActivity());
     }
 
     @Override

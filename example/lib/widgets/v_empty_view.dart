@@ -6,7 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class VEmptyView extends StatelessWidget {
   final double height;
 
-  VEmptyView(this.height);
+  // VEmptyView(this.height);
+  const VEmptyView(this.height, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

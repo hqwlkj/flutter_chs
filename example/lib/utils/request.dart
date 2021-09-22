@@ -12,9 +12,9 @@ class Request {
   static Dio _dio;
 
   ///  服务器请求地址
-  static final String mockUrl = 'http://192.168.31.102:8866/YbService';
-  static final String stageUrl = 'http://192.168.65.47:8866/YbService';
-  static final String baseUrl = 'http://192.168.31.102:8866/YbService';
+  static const String mockUrl = 'http://192.168.31.102:8866/YbService';
+  static const String stageUrl = 'http://192.168.65.47:8866/YbService';
+  static const String baseUrl = 'http://192.168.31.102:8866/YbService';
 
   static const int CONNECT_TIMEOUT = 1000 * 15;
   static const int RECEIVE_TIMEOUT = 3000;
@@ -22,9 +22,9 @@ class Request {
   static const CONTENT_TYPE_FORM = "application/x-www-form-urlencoded; charset=utf-8";
 
   static void init() async {
-    const bool inProduction = const bool.fromEnvironment("dart.vm.product");
+    const bool inProduction = bool.fromEnvironment("dart.vm.product");
     _dio = Dio(BaseOptions(
-        baseUrl: inProduction ? '$baseUrl' : '$stageUrl',
+        baseUrl: inProduction ? baseUrl : stageUrl,
         connectTimeout: CONNECT_TIMEOUT,
         receiveTimeout:  RECEIVE_TIMEOUT,
         followRedirects: false))

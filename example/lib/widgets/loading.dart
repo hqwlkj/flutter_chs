@@ -34,7 +34,7 @@ class Loading {
                         color: Colors.white,
                         size: ScreenUtil().setWidth(100),
                       ),
-                      VEmptyView(35),
+                      const VEmptyView(35),
                       Text(text, style: TextStyle(color: Colors.white, fontSize: ScreenUtil().setSp(28), fontWeight: FontWeight.w500, decoration: TextDecoration.none ),)
                     ],
                   ) :SpinKitFadingCircle(

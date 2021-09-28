@@ -99,6 +99,15 @@ class _HomePageState extends State<HomePage> {
                     });
                   },
                   child: const Text('多合一读卡开')),
+              TextButton(
+                  onPressed: () async {
+                    Map<String, dynamic> result = await FlutterChs.readIdCard(idCardKeys: ['name', 'id_number']);
+                    print("中国医疗保障 DEMO: $result");
+                    setState(() {
+                      _result = result;
+                    });
+                  },
+                  child: const Text('只读身份证的姓名和号码')),
             ],
           ),
           Row(

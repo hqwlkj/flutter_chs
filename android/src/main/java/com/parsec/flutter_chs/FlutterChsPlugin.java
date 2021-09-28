@@ -10,6 +10,8 @@ import com.parsec.flutter_chs.services.ChsService;
 import com.parsec.flutter_chs.utils.ICallback;
 import com.parsec.flutter_chs.utils.LoggerUtil;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
@@ -45,6 +47,8 @@ public class FlutterChsPlugin implements FlutterPlugin, MethodCallHandler, Activ
         LoggerUtil.e("call_method: " + call.method);
         Integer timeout = call.argument("timeout");
         LoggerUtil.e("readTime:" + timeout);
+        List<String> idCardKeys;
+        List<String> healthCardKeys;
         switch (call.method) {
             case "getPlatformVersion":
                 result.success("Android " + android.os.Build.VERSION.RELEASE);
@@ -63,12 +67,14 @@ public class FlutterChsPlugin implements FlutterPlugin, MethodCallHandler, Activ
             case "readIdCard":
                 if (timeout == null)
                     timeout = 5; // 默认为 5 秒
-                readIdCard(result, timeout);
+                idCardKeys = call.argument("idCardKeys");
+                readIdCard(result, timeout, idCardKeys);
                 break;
-            case "readSocialSecurityCard":
+            case "readSocialSecurityCard": //读取社保卡信息
                 if (timeout == null)
                     timeout = 30; // 扫码超时时间，默认30 秒
-                readSocialSecurityCard(result, timeout);
+                healthCardKeys = call.argument("healthCardKeys");
+                readSocialSecurityCard(result, timeout, healthCardKeys);
                 break;
             case "closeScan":
                 ChsService.closeScan();
@@ -97,7 +103,9 @@ public class FlutterChsPlugin implements FlutterPlugin, MethodCallHandler, Activ
                 boolean isIdCard = call.argument("isIdCard");
                 boolean isScan = call.argument("isScan");
                 boolean isHealthCard = call.argument("isHealthCard");
-                readDevice(result, timeout, isIdCard, isScan, isHealthCard);
+                idCardKeys = call.argument("idCardKeys");
+                healthCardKeys = call.argument("healthCardKeys");
+                readDevice(result, timeout, isIdCard, isScan, isHealthCard, idCardKeys, healthCardKeys);
                 break;
             case "closeDevice":
                 ChsService.closeDevice();
@@ -116,8 +124,8 @@ public class FlutterChsPlugin implements FlutterPlugin, MethodCallHandler, Activ
         }
     }
 
-    private void readDevice(@NonNull final Result result, Integer timeout, boolean isIdCard, boolean isScan, boolean isHealthCard) {
-        ChsService.readDevice(FlutterChsHandler.getContext(), timeout, isIdCard, isScan, isHealthCard, new ICallback() {
+    private void readDevice(@NonNull final Result result, Integer timeout, boolean isIdCard, boolean isScan, boolean isHealthCard, List<String> idCardResults, List<String> healthCardResults) {
+        ChsService.readDevice(FlutterChsHandler.getContext(), timeout, isIdCard, isScan, isHealthCard, idCardResults, healthCardResults, new ICallback() {
             @Override
             public void callback(final Map<String, Object> params) {
                 uiThreadHandler.post(new Runnable() {
@@ -148,8 +156,8 @@ public class FlutterChsPlugin implements FlutterPlugin, MethodCallHandler, Activ
         });
     }
 
-    private void readIdCard(@NonNull final Result result, final Integer timeout) {
-        ChsService.readIdCard(FlutterChsHandler.getContext(), timeout, new ICallback() {
+    private void readIdCard(@NonNull final Result result, final Integer timeout, final List<String> results) {
+        ChsService.readIdCard(FlutterChsHandler.getContext(), timeout, results, new ICallback() {
             @Override
             public void callback(final Map<String, Object> params) {
                 uiThreadHandler.post(new Runnable() {
@@ -162,8 +170,8 @@ public class FlutterChsPlugin implements FlutterPlugin, MethodCallHandler, Activ
         });
     }
 
-    private void readSocialSecurityCard(@NonNull final Result result, final Integer timeout) {
-        ChsService.readSocialSecurityCard(FlutterChsHandler.getContext(), timeout, new ICallback() {
+    private void readSocialSecurityCard(@NonNull final Result result, final Integer timeout, final List<String> results) {
+        ChsService.readSocialSecurityCard(FlutterChsHandler.getContext(), timeout, results, new ICallback() {
             @Override
             public void callback(final Map<String, Object> params) {
                 uiThreadHandler.post(new Runnable() {

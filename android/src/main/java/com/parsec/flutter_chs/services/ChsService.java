@@ -17,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import cn.hsa.ctp.device.sdk.managerService.aidl.Beeper;
@@ -138,7 +139,7 @@ public class ChsService {
      * @param timeout  超时时间，单位:秒
      * @param callback 结果回调函数
      */
-    public static void readIdCard(final Context context, final Integer timeout, final ICallback callback) {
+    public static void readIdCard(final Context context, final Integer timeout, final List<String> results, final ICallback callback) {
         SDKExecutors.getThreadPoolInstance().submit(new Runnable() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
@@ -151,7 +152,7 @@ public class ChsService {
                         idCardReader.setTimeOut(timeout * 1000);
                         Bundle bundle = idCardReader.readBaseMsg();
                         if (bundle != null && bundle.getInt("errorCode") == 0x90) {
-                            JSONObject data = FormatDataUtils.idCardData(bundle);
+                            JSONObject data = FormatDataUtils.idCardData(bundle, results);
                             params.put(Constant.RESULT_MESSAGE, "读身份证成功");
                             params.put(Constant.RESULT_CODE, Constant.RESULT_SUCCESS);
                             params.put(Constant.RESULT_DATA, data.toString());
@@ -183,7 +184,7 @@ public class ChsService {
      * @param timeout  超时时间，单位:秒
      * @param callback 结果回调函数
      */
-    public static void readSocialSecurityCard(final Context context, final Integer timeout, final ICallback callback) {
+    public static void readSocialSecurityCard(final Context context, final Integer timeout,final List<String> results, final ICallback callback) {
         SDKExecutors.getThreadPoolInstance().submit(new Runnable() {
             @Override
             public void run() {
@@ -192,7 +193,7 @@ public class ChsService {
                     healthCardReader = DeviceService.getInstance(context).getHealthCardReader();
                     Bundle bundle = healthCardReader.readCard(timeout * 1000); // 启动读社保卡 超时时间为毫秒
                     if (bundle != null && bundle.getInt("errorCode") == 0x90) {
-                        JSONObject data = FormatDataUtils.healthCardData(bundle);
+                        JSONObject data = FormatDataUtils.healthCardData(bundle, results);
                         params.put(Constant.RESULT_MESSAGE, "社保卡读取成功");
                         params.put(Constant.RESULT_CODE, Constant.RESULT_SUCCESS);
                         params.put(Constant.RESULT_DATA, data.toString());
@@ -425,9 +426,11 @@ public class ChsService {
      * @param isIdCard     支持身份证
      * @param isScan       支持扫码
      * @param isHealthCard 支持社保卡
+     * @param idCardResults 身份证返回结果KEY
+     * @param healthCardResults 社保卡返回结果KEY
      * @param callback     回调函数
      */
-    public static void readDevice(final Context context, final Integer timeout, final boolean isIdCard, final boolean isScan, final boolean isHealthCard, final ICallback callback) {
+    public static void readDevice(final Context context, final Integer timeout, final boolean isIdCard, final boolean isScan, final boolean isHealthCard, final List<String> idCardResults, final List<String> healthCardResults,  final ICallback callback) {
         SDKExecutors.getThreadPoolInstance().submit(new Runnable() {
             @Override
             public void run() {
@@ -444,10 +447,10 @@ public class ChsService {
                                     data.put("barcode", bundle.get("barcode"));
                                     break;
                                 case "IDCARD":
-                                    data = FormatDataUtils.idCardData(bundle);
+                                    data = FormatDataUtils.idCardData(bundle, idCardResults);
                                     break;
                                 case "HEALTHCARD":
-                                    data = FormatDataUtils.healthCardData(bundle);
+                                    data = FormatDataUtils.healthCardData(bundle, healthCardResults);
                                     break;
                                 default:
                                     data.put("error", "卡片类型不正确，读取失败");

@@ -1,3 +1,10 @@
+## 0.0.5
+
+* `readIdCard` 方法新增 `idCardKeys` 可选返回参数
+* `readSocialSecurityCard` 方法新增 `healthCardKeys` 可选返回参数
+* `openReadDevice` 方法新增 `idCardKeys` 和 `healthCardKeys` 可选返回参数
+*  相关的参数 `KEY` 查看具体方法的注释说明文档
+
 ## 0.0.4
 
 * fix: Flutter MethodChannel 原生通信导致的Reply already submitted问题
